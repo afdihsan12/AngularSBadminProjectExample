@@ -1,0 +1,170 @@
+<div [@routerTransition]>
+  <app-page-header [heading]="'List Employee'" [icon]="'fa-desktop'"></app-page-header>
+
+      <div class="main-card mb-3 card">
+          <div class="card-header">
+          Employee
+          </div>
+          <div class="table-responsive">
+            <table class="table table-borderless table-striped table-hover" [svData]="empl" #sv="svDataTable" [svRowsOnPage]="3">
+              <tbody>
+
+              <tr *ngFor = "let employee of sv.data; let i = index;">
+                <td>{{i+1}}</td>
+                <td>
+                        <p style="font-size: 15px;padding: 0%;">{{employee.nrp}}</p>
+                        <p style="font-size: 25px;padding: 0%;">{{employee.name}}</p>
+                        <p style="font-size: 15px;padding: 0%;">{{employee.emptype.name}}</p>          
+                </td>
+                <td class="text-center" colspan="3">{{employee.alamat}}</td>
+                <td class="text-center">
+                  <a type="button" class="btn fa fa-trash-o" style="font-size:30px;color:red ;padding: 10;" (click)="open(delete)" (click)="upt(employee.idemp)"></a>                  
+                  <a type="button" class="btn fa fa-edit" style="font-size:30px;color: green;" (click)="open(update)" (click)="upt(employee.idemp)"></a>
+                </td>
+              </tr>
+              </tbody>
+              <tfoot>
+                  <tr>
+                        <td colspan="4">
+                            <sv-bootstrap-paginator ></sv-bootstrap-paginator>
+                          </td>
+                  </tr>
+                  </tfoot>
+            </table>
+          </div>
+
+<!-- Modal content --><!-- Modal content --><!-- Modal content --><!-- Modal content -->
+<ng-template #add let-c="close" let-d="dismiss">
+<div class="modal-header">
+    <h4 class="modal-title">Add Employee</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+  <form autocomplete="off">
+    <fieldset class="form-group">
+      <label>NRP</label>
+      <input class="form-control" name="nrp" [(ngModel)]="emp.nrp"  placeholder="Enter NRP">
+    </fieldset>
+  
+    <fieldset class="form-group">
+      <label>Name</label>
+      <input class="form-control" placeholder="Enter Name" name="name" [(ngModel)]="emp.name">
+      
+    </fieldset>
+  
+    <fieldset class="form-group">
+      <label>Email</label>
+      <input class="form-control"  name="email" [(ngModel)]="emp.email" placeholder="Enter Email">
+    </fieldset>
+  
+    <div class="form-group">
+      <label>Address</label>
+      <input class="form-control"   name="addres" [(ngModel)]="emp.alamat" placeholder="Enter Addres">
+    </div>
+  
+    <fieldset class="form-group">
+      <label>Phone Number</label>
+      <input class="form-control" name="notelp" [(ngModel)]="emp.notelp" placeholder="Enter Phonenumber">
+    </fieldset>
+  
+    <div class="form-group">
+      <label>Employee Type</label>
+      <select class="form-control"  name="addres" [(ngModel)]="emp.emptype">
+        <option  [(ngValue)] = "et" disabled>Pilih Emptype</option>
+        <option  *ngFor="let et of type"  [(ngValue)]="et" >{{et.description}}</option>
+      </select>
+  </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <a  class="btn btn-primary"  name="submit" value="" (click)="createuser(succes)" (click)="c('Close click')">Save</a>
+</div>
+</ng-template>
+
+
+
+
+<!-- Modal content -->
+<!-- Modal content Update -->
+
+
+
+<ng-template #update let-c="close" let-d="dismiss">
+<div class="modal-header">
+    <h4 class="modal-title">Update Employee</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+  <form autocomplete="off">
+    <fieldset class="form-group">
+      <label>NRP</label>
+      <input class="form-control" name="nrp" [(ngModel)]="emp.nrp"  placeholder="Enter NRP" disabled>
+    </fieldset>
+  
+    <fieldset class="form-group">
+      <label>Name</label>
+      <input class="form-control" placeholder="Enter Name" name="name" [(ngModel)]="emp.name">
+      
+    </fieldset>
+  
+    <fieldset class="form-group">
+      <label>Email</label>
+      <input class="form-control"  name="email" [(ngModel)]="emp.email" placeholder="Enter Email">
+    </fieldset>
+  
+    <div class="form-group">
+      <label>Address</label>
+      <input class="form-control"   name="addres" [(ngModel)]="emp.alamat" placeholder="Enter Addres">
+    </div>
+  
+    <fieldset class="form-group">
+      <label>Phone Number</label>
+      <input class="form-control" name="notelp" [(ngModel)]="emp.notelp" placeholder="Enter Phonenumber">
+    </fieldset>
+  
+    <div class="form-group">
+      <label>Employee Type</label>
+      <select class="form-control"  name="emptype" [(ngModel)]="emp.emptype">
+        <option [(value)]="emp.emptype" selected disabled>{{emp.emptype?.name}}</option>
+        <option  *ngFor="let et of type" [(ngValue)]="et">{{et.name}}</option>
+      </select>
+  </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <a href="/employee" class="btn btn-primary" type="submit" name="update" value="" (click)="updateEmp(emp.idemp)" (click)="c('Close click')">Update</a>
+  <b  class="btn btn-dark"  name="close"  (click)="c('Close click')">Close</b>
+
+</div>
+</ng-template>
+
+
+<ng-template #delete let-c="close" let-d="dismiss">
+<div class="modal-header">
+    <h4 class="modal-title">Delete Employee</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <p>Are You Sure to delete ??</p>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="c('Close click')" (click)="deleteEmployee(emp.idemp)" href="employee">Yes</button>
+    <button type="button" class="btn btn-secondary" (click)="c('Close click')">No</button>
+</div>
+</ng-template>
+
+<ng-template #succes let-c="close" let-d="dismiss">
+  
+  <div class="modal-body" style="text-align: center;">
+      <h2 style="color:grey;">ADD EMPLOYEE SUCCES</h2>
+  </div>
+  <div class="modal-footer">
+    <a type="button" class="btn btn-primary" style="text-align: left;" (click)="c('Close click')" href="employee">OK</a>
+  </div>
+  </ng-template>

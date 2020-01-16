@@ -1,0 +1,39 @@
+<div [@routerTransition]>
+  <app-page-header [heading]="'Form Employee'" [icon]="'fas fa-address-book'"></app-page-header>
+
+<form>
+  <fieldset class="form-group">
+    <label>NRP</label>
+    <input class="form-control" name="nrp" [(ngModel)]="emp.nrp"  placeholder="Enter NRP">
+  </fieldset>
+
+  <fieldset class="form-group">
+    <label>Name</label>
+    <input class="form-control" placeholder="Enter Name" name="name" [(ngModel)]="emp.name">
+    
+  </fieldset>
+
+  <fieldset class="form-group">
+    <label>Email</label>
+    <input class="form-control"  name="email" [(ngModel)]="emp.email" placeholder="Enter Email">
+  </fieldset>
+
+  <div class="form-group">
+    <label>Address</label>
+    <input class="form-control"   name="addres" [(ngModel)]="emp.alamat" placeholder="Enter Addres">
+  </div>
+
+  <fieldset class="form-group">
+    <label>Phone Number</label>
+    <input class="form-control" name="notelp" [(ngModel)]="emp.notelp" placeholder="Enter Phonenumber">
+  </fieldset>
+
+  <div class="form-group">
+    <label>Employee Type</label>
+    <select class="form-control"  name="addres" [(ngModel)]="emp.emptype">
+      <option  *ngFor="let et of type" [(ngValue)]="et">{{et.name}}</option>
+    </select>
+</div>
+<button class="btn btn-primary" type="submit" name="submit" value="" (click)="createuser()">Save</button>
+</form>
+  </div>

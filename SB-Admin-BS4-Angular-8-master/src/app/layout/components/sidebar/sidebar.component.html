@@ -1,0 +1,226 @@
+<nav class="sidebar" [ngClass]="{sidebarPushRight: isActive, collapsed: collapsed}">
+    <div class="list-group">
+        <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa  fa fa-home"></i>&nbsp;
+            <span>{{ 'Dashboard' | translate }}</span>
+        </a>
+        
+
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('pages')">
+                <span class="fa fa-database">{{ ' Employee ' | translate }}</span>&nbsp;
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'pages'">
+                <ul class="submenu">
+                    <li>
+                        <a [routerLink]="['/emp-type']"[routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-user-o"></i>&nbsp;
+                            <span>{{ 'Employee Type' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/employee']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-users"></i>&nbsp;
+                            <span >{{ 'Employee' | translate }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div>
+
+        
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('rooms')">
+                <span class="fa fa-database">{{ ' Rooms ' | translate }}</span>
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'rooms'">
+                <ul class="submenu">
+                    <li>
+                        <a [routerLink]="['/rooms-type']"[routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-building-o"></i>&nbsp;
+                            <span>{{ 'Rooms Type' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/rooms']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-hotel"></i>
+                            <span >{{ 'Rooms' | translate }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div>
+
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('labs')">
+                <span class="fa fa-database">{{ ' Labs ' | translate }}</span>
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'labs'">
+                <ul class="submenu">
+                    <li>
+                        <a [routerLink]="['/labs']"[routerLinkActive]="['router-link-active']">
+                            <i class="fa fa fa-code-fork"></i>&nbsp;
+                            <span>{{ 'Labs' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/labrates']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-building"></i>&nbsp;
+                            <span >{{ 'Lab Rates' | translate }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div>
+
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('patient')">
+                <span class="fa fa-database">{{ ' Patient ' | translate }}</span>
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'patient'">
+                <ul class="submenu">
+                    <li>
+                        <a [routerLink]="['/patient']"[routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-users"></i>&nbsp;
+                            <span>{{ 'Patients' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/medrec']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-book"></i>&nbsp;
+                            <span >{{ 'Medical Record' | translate }}</span>&nbsp;
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div>
+
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('units')">
+                <span class="fa fa-database">{{ ' Units ' | translate }}</span>&nbsp;
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'units'">
+                <ul class="submenu">
+                    <li>
+                        <a [routerLink]="['/units']"[routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-user-o"></i>&nbsp;
+                            <span>{{ 'Units' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <li>
+                            <a [routerLink]="['/service']"[routerLinkActive]="['router-link-active']">
+                                <i class="fa fa-user-o"></i>&nbsp;
+                                <span>{{ 'Service' | translate }}</span>
+                            </a>
+                        </li>
+                        <li>            
+                        <a [routerLink]="['/doctors']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-users"></i>&nbsp;
+                            <span >{{ 'Units Doctor' | translate }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div>
+
+
+
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('medicines')">
+                <span class="fa fa-database">{{ ' Medicines ' | translate }}</span>
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'medicines'">
+                <ul class="submenu">
+                    <li>
+                        <a [routerLink]="['/medicines']"[routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-user-o"></i>&nbsp;
+                            <span>{{ 'Mediciines' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <li>
+                            <a [routerLink]="['/suppliers']"[routerLinkActive]="['router-link-active']">
+                                <i class="fa fa-user-o"></i>&nbsp;
+                                <span>{{ 'Suppliers' | translate }}</span>
+                            </a>
+                        </li>
+                        <li>            
+                        <a [routerLink]="['/medsuplly']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-users"></i>&nbsp;
+                            <span >{{ 'Medicines Suppliers' | translate }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div>
+
+        <a [routerLink]="['/bill']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-credit-card"></i>&nbsp;
+            <span>{{ 'Bills' | translate }}</span>
+        </a>
+
+        <!-- <a [routerLink]="['/forms']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-edit"></i>&nbsp;
+            <span>{{ 'Forms' | translate }}</span>
+        </a>
+        <a [routerLink]="['/bs-element']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-desktop"></i>&nbsp;
+            <span>{{ 'Bootstrap Element' | translate }}</span>
+        </a>
+        <a [routerLink]="['/grid']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-wrench"></i>&nbsp;
+            <span>{{ 'Bootstrap Grid' | translate }}</span>
+        </a>
+        <a [routerLink]="['/components']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-th-list"></i>&nbsp;
+            <span>{{ 'Component' | translate }}</span>
+        </a>
+        
+        <a [routerLink]="['/blank-page']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-file-o"></i>&nbsp;
+            <span>{{ 'Blank Page' | translate }}</span>
+        </a>
+         -->
+
+        <div class="header-fields">
+            <a (click)="rltAndLtr()" class="list-group-item">
+                <span><i class="fa fa-arrows-h"></i>&nbsp; RTL/LTR</span>
+            </a>
+            
+            <div class="nested-menu">
+                <a class="list-group-item" (click)="addExpandClass('profile')">
+                    <span><i class="fa fa-user"></i>&nbsp; Afdhalul Ihsan</span>
+                </a>
+                <li class="nested" [class.expand]="showMenu === 'profile'">
+                    <ul class="submenu">
+                        <li>
+                            <a href="javascript:void(0)">
+                                <span><i class="fa fa-fw fa-user"></i> {{ 'Profile' | translate }}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <span><i class="fa fa-fw fa-envelope"></i> {{ 'Inbox' | translate }}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <span><i class="fa fa-fw fa-gear"></i> {{ 'Settings' | translate }}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a [routerLink]="['/login']" (click)="onLoggedout()">
+                                <span><i class="fa fa-fw fa-power-off"></i> {{ 'Log Out' | translate }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </div>
+        </div>
+    </div>
+    <div class="toggle-button" [ngClass]="{collapsed: collapsed}" (click)="toggleCollapsed()">
+        <i class="fa fa-fw fa-angle-double-{{collapsed?'right':'left'}}"></i>&nbsp;
+        <span>{{ 'Collapse Sidebar' | translate }}</span>
+    </div>
+</nav>

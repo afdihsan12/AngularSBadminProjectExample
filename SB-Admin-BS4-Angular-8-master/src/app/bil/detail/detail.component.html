@@ -1,0 +1,71 @@
+<div class="container">
+  <div class="card">
+      <div class="card-header">Bills</div>
+      <div class="card-body">
+          <ngb-tabset type="pills">
+              <ngb-tab title="Medicines">
+                  <ng-template ngbTabContent>
+                    <br>
+                    <br>
+                    <div class="main-card mb-3 card">
+                      <div class="table-responsive">
+                        <table class="table table-borderless table-striped table-hover" [svData]="listmed" #sv="svDataTable" [svRowsOnPage]="3">
+                          <thead>
+                            <td class="text-center">No</td>
+                            <td class="text-center">Code</td>
+                            <td class="text-center">Name</td>
+                            <td class="text-center">Units</td>
+                            <td class="text-center">Rate</td>
+                            <td class="text-center">Action</td>
+                          </thead>
+                          <tbody>
+                          <tr *ngFor = "let type of sv.data; let i = index;">
+                            <td class="text-center">{{i+1}}</td>
+                            <td class="text-center">
+                              {{type.code}}
+                            </td>
+                            <td class="text-center">
+                              {{type.name}}
+                            </td>
+                            <td class="text-center">{{type.units}}</td>
+                            <td class="text-center">{{type.rate}}</td>
+                            <td class="text-center">
+                              <a type="button" class="btn fa fa-trash-o" style="font-size:30px;color:red ;padding: 10;" (click)="open(delete)" (click)="upt(type.id)"></a>                  
+                              <a type="button" class="btn fa fa-edit" style="font-size:30px;color: green;" (click)="open(update)" (click)="upt(type.id)"></a>
+                            </td>
+                          </tr>
+                          </tbody>
+                          <tfoot>
+                              <tr>
+                                    <td colspan="4">
+                                        <sv-bootstrap-paginator ></sv-bootstrap-paginator>
+                                      </td>
+                              </tr>
+                              </tfoot>
+                        </table>
+                      </div>
+                    </div>
+                    
+
+                      </ng-template>
+              </ngb-tab>
+              <ngb-tab>
+                  <ng-template ngbTabTitle><b>Service</b> title</ng-template>
+                  <ng-template ngbTabContent>
+
+                    
+                  </ng-template>
+              </ngb-tab>
+              <ngb-tab title="Disabled" [disabled]="true">
+                  <ng-template ngbTabContent>
+                      <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth
+                      master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh
+                      dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum
+                      iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
+                  </ng-template>
+              </ngb-tab>
+          </ngb-tabset>
+      </div>
+  </div>
+</div>
+

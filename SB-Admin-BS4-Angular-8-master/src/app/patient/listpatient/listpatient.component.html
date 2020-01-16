@@ -1,0 +1,210 @@
+<div [@routerTransition]>
+  <app-page-header [heading]="'List Patient'" [icon]="'fa-desktop'"></app-page-header>
+
+  <div class="card-body">
+    <button class="btn btn-primary" (click)="open(add)" (click) ="resetPatient()">Add Patient</button>  
+</div>
+  
+    <div class="card-header">
+    Patient List
+    </div>
+    <div class="form-group input-group">
+      <input autocomplete="off" type="text" class="form-control" placeholder="Search by Register Number" name="id" [(ngModel)]="id">
+      <div class="input-group-append">
+          <button class="btn btn-secondary" type="button"><i class="fa fa-search" (click)="search(id)"></i></button>
+      </div>
+    </div>
+    <div class="main-card mb-3 card">
+    <div class="table-responsive">
+      <table class="table table-borderless table-striped table-hover" [svData]="patientlist" #sv="svDataTable" [svRowsOnPage]="3">
+        <thead>
+          <td class="text-center">No</td>
+          <td class="text-center">Regnum</td>
+          <td class="text-center">Medical Record Number</td>
+          <td class="text-center">Name</td>
+          <td class="text-center">Date of Birth</td>
+          <td class="text-center">Addres</td>
+          <td class="text-center">Gender</td>
+          <td class="text-center">Action</td>
+        </thead>
+        <tbody>
+  
+        <tr *ngFor = "let type of sv.data; let i = index;">
+          <td class="text-center">{{i+1}}</td>
+          <td class="text-center">
+            {{type.regNum}}
+          </td>
+          <td class="text-center">
+            {{type.medRecNumber}}
+          </td>
+          <td class="text-center">{{type.name}}</td>
+          <td class="text-center">{{type.date}}</td>
+          <td class="text-center">{{type.addres}}</td>
+          <td class="text-center">{{type.gender}}</td>
+          <td class="text-center">
+            <a type="button" class="btn fa fa-trash-o" style="font-size:30px;color:red ;padding: 10;" (click)="open(delete)" (click)="upt(type.id)"></a>                  
+            <a type="button" class="btn fa fa-edit" style="font-size:30px;color: green;" (click)="open(update)" (click)="upt(type.id)"></a>
+          </td>
+        </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                  <td colspan="4">
+                      <sv-bootstrap-paginator ></sv-bootstrap-paginator>
+                    </td>
+            </tr>
+            </tfoot>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal content --><!-- Modal content --><!-- Modal content --><!-- Modal content -->
+<!-- Modal Add --><!-- Modal content --><!-- Modal content --><!-- Modal content -->
+
+<ng-template #add let-c="close" let-d="dismiss">
+  <div class="modal-header">
+      <h4 class="modal-title">Add Patient</h4>
+      <button type="button" class="close" aria-label="Close" (click)="c('Close click')">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="modal-body">
+  <form autocomplete="off">
+  
+    <fieldset class="form-group">
+      <label>Register Number</label>
+      <input class="form-control" name="noreg" [(ngModel)]="patient.regNum"  placeholder="Enter Register Number">
+    </fieldset>
+
+    <fieldset class="form-group">
+      <label>Medical Record Number</label>
+      <input class="form-control" name="medrec" [(ngModel)]="patient.medRecNumber"  placeholder="Enter Medical Record Number">
+    </fieldset>
+
+    <fieldset class="form-group">
+      <label>Date Of Birth</label>
+      <input type="date" class="form-control" name="date" [(ngModel)]="patient.date">
+
+    </fieldset>
+
+    <fieldset class="form-group">
+      <label>Name</label>
+      <input class="form-control" name="name" [(ngModel)]="patient.name"  placeholder="Enter Patient Name">
+    </fieldset>
+
+<fieldset class="form-group">
+    <label class="radio-inline">
+      <input type="radio" name="genderL" id="genderL" value="Laki-Laki" [(ngModel)]="patient.gender">Laki-Laki
+  </label>
+  <label class="radio-inline">
+      <input type="radio" name="genderL" id="GenderP" value="Perempuan" [(ngModel)]="patient.gender">Perempuan
+  </label>
+</fieldset>
+
+<fieldset class="form-group">
+  <label>Addres</label>
+  <input class="form-control" name="addres" [(ngModel)]="patient.addres"  placeholder="Enter Patient Addres">
+</fieldset>
+
+<fieldset class="form-group">
+  <label>Phone Number</label>
+  <input class="form-control" name="phonenumber" [(ngModel)]="patient.phonenumber"  placeholder="Enter Patient Phonenumber">
+</fieldset>
+
+
+  </form>
+  </div>
+  <div class="modal-footer">
+    <a  class="btn btn-primary"  name="submit" value="" (click)="createuser(succes)" (click)="c('Close click')">Save</a>
+  </div>
+  </ng-template>
+
+  <!-- Modal Succes --><!-- Modal Succes --><!-- Modal Succes -->
+  <ng-template #succes let-c="close" let-d="dismiss">
+  
+    <div class="modal-body" style="text-align: center;">
+        <h5 style="color:grey;">ADD Patient SUCCES</h5>
+    </div>
+    <div class="modal-footer">
+      <a type="button" class="btn btn-primary" style="text-align: left;" (click)="c('Close click')" href="patient">OK</a>
+    </div>
+    </ng-template>
+
+
+    <ng-template #update let-c="close" let-d="dismiss">
+      <div class="modal-header">
+          <h4 class="modal-title">UpdatePatient</h4>
+          <button type="button" class="close" aria-label="Close" (click)="c('Close click')">
+              <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body">
+      <form autocomplete="off">
+      
+        <fieldset class="form-group">
+          <label>Register Number</label>
+          <input disabled class="form-control" name="noreg" [(ngModel)]="patient.regNum"  placeholder="Enter Register Number">
+        </fieldset>
+    
+        <fieldset class="form-group">
+          <label>Medical Record Number</label>
+          <input disabled class="form-control" name="medrec" [(ngModel)]="patient.medRecNumber"  placeholder="Enter Medical Record Number">
+        </fieldset>
+    
+        <fieldset class="form-group">
+          <label>Date Of Birth</label>
+          <input type="date" class="form-control" name="date" [(ngModel)]="patient.date">
+    
+        </fieldset>
+    
+        <fieldset class="form-group">
+          <label>Name</label>
+          <input class="form-control" name="name" [(ngModel)]="patient.name"  placeholder="Enter Patient Name">
+        </fieldset>
+    
+    <fieldset class="form-group">
+        <label class="radio-inline">
+          <input type="radio" name="genderL" id="genderl" value="Laki-Laki"  [(ngModel)]="patient.gender">Laki-Laki
+      </label>
+      <label class="radio-inline">
+          <input type="radio" name="genderL" id="Genderl" value="Perempuan" [(ngModel)]="patient.gender">Perempuan
+      </label>
+    </fieldset>
+    
+    <fieldset class="form-group">
+      <label>Addres</label>
+      <input class="form-control" name="addres" [(ngModel)]="patient.addres"  placeholder="Enter Patient Addres">
+    </fieldset>
+    
+    <fieldset class="form-group">
+      <label>Phone Number</label>
+      <input class="form-control" name="phonenumber" [(ngModel)]="patient.phonenumber"  placeholder="Enter Patient Phonenumber">
+    </fieldset>
+    
+    
+      </form>
+      </div>
+      <div class="modal-footer">
+        <a href="/patient" class="btn btn-primary" type="submit" name="update" value="" (click)="updatepatient(patient.id)" (click)="c('Close click')">Update</a>
+        <b  class="btn btn-dark"  name="close"  (click)="c('Close click')">Close</b>
+      
+      </div>
+      </ng-template>    
+
+      <ng-template #delete let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <h4 class="modal-title">Delete Patient</h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p>Are You Sure to delete ??</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="c('Close click')" (click)="deleteEmployeeType(patient.id)" href="patient">Yes</button>
+            <button type="button" class="btn btn-secondary" (click)="c('Close click')">No</button>
+        </div>
+        </ng-template>

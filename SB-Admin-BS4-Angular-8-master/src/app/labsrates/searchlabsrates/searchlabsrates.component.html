@@ -1,0 +1,141 @@
+<div [@routerTransition]>
+  <app-page-header [heading]="'Lab Rates List'" [icon]="'fa-desktop'"></app-page-header>
+  
+<div class="main-card mb-3 card">
+  <div class="card-header">
+  Labs Rate List
+  </div>
+  <div class="table-responsive">
+    <table class="table table-borderless table-striped table-hover" [svData]="listlab" #sv="svDataTable" [svRowsOnPage]="3">
+      <thead>
+        <td class="text-center">No</td>
+        <td class="text-center">Pelayanan</td>
+        <td class="text-center">Rates</td>
+        <td class="text-center">Labs</td>
+        <td class="text-center">Action</td>
+      </thead>
+      <tbody>
+
+      <tr *ngFor = "let type of sv.data; let i = index;">
+        <td class="text-center">{{i+1}}</td>
+        <td class="text-center">
+          {{type.pelayanan}}
+        </td>
+        <td class="text-center">
+          {{type.rate}}
+        </td>
+        <td class="text-center">{{type.labs?.name}}</td>
+        <td class="text-center">
+          <a type="button" class="btn fa fa-trash-o" style="font-size:30px;color:red ;padding: 10;" (click)="open(delete)" (click)="upt(type.id)"></a>                  
+          <a type="button" class="btn fa fa-edit" style="font-size:30px;color: green;" (click)="open(update)" (click)="upt(type.id)"></a>
+        </td>
+      </tr>
+      </tbody>
+      <tfoot>
+          <tr>
+                <td colspan="4">
+                    <sv-bootstrap-paginator ></sv-bootstrap-paginator>
+                  </td>
+          </tr>
+          </tfoot>
+    </table>
+  </div>
+</div>
+
+
+
+<ng-template #add let-c="close" let-d="dismiss">
+  <div class="modal-header">
+      <h4 class="modal-title">Add Labs Service</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="modal-body">
+  <form autocomplete="off">
+    <fieldset class="form-group">
+      <label>Service</label>
+      <input class="form-control" name="pelayanan" [(ngModel)]="lab.pelayanan"  placeholder="Enter Lab Service">
+    </fieldset>
+
+    <fieldset class="form-group">
+      <label>Rate</label>
+      <input class="form-control" name="rate" [(ngModel)]="lab.rate"  placeholder="Enter Rate Service">
+    </fieldset>
+
+    <div class="form-group">
+      <label>Labs</label>
+      <select class="form-control"  name="addres" [(ngModel)]="lab.labs">
+        <option  [(ngValue)] = "et.labs" disabled>Pilih Labs</option>
+        <option  *ngFor="let et of type"  [(ngValue)]="et" >{{et.name}}</option>
+      </select>
+  </div>
+  </form>
+  </div>
+  <div class="modal-footer">
+    <a  class="btn btn-primary"  name="submit" value="" (click)="createuser(succes)" (click)="c('Close click')">Save</a>
+  </div>
+  </ng-template>
+
+  <ng-template #succes let-c="close" let-d="dismiss">
+  
+    <div class="modal-body" style="text-align: center;">
+        <h5 style="color:grey;">ADD Labs Service SUCCES</h5>
+    </div>
+    <div class="modal-footer">
+      <a type="button" class="btn btn-primary" style="text-align: left;" (click)="c('Close click')" href="labrates">OK</a>
+    </div>
+    </ng-template>
+
+    
+    <ng-template #delete let-c="close" let-d="dismiss">
+      <div class="modal-header">
+          <h4 class="modal-title">Delete Labs Service</h4>
+          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+              <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body">
+          <p>Are You Sure to delete ??</p>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="c('Close click')" (click)="deleteEmployeeType(lab.id)" href="labrates">Yes</button>
+          <button type="button" class="btn btn-secondary" (click)="c('Close click')">No</button>
+      </div>
+      </ng-template>
+  
+    <ng-template #update let-c="close" let-d="dismiss">
+      <div class="modal-header">
+          <h4 class="modal-title">Update Labs</h4>
+          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+              <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body">
+        <form autocomplete="off">
+          <fieldset class="form-group">
+            <label>Service</label>
+            <input class="form-control" name="pelayanan" [(ngModel)]="lab.pelayanan"  placeholder="Enter Lab Service">
+          </fieldset>
+      
+          <fieldset class="form-group">
+            <label>Rate</label>
+            <input class="form-control" name="rate" [(ngModel)]="lab.rate"  placeholder="Enter Rate Service">
+          </fieldset>
+      
+          <div class="form-group">
+            <label>Labs</label>
+            <select class="form-control"  name="addres" [(ngModel)]="lab.labs">
+              <option  [(ngValue)] = "lab.labs" disabled>{{lab.labs?.name}}</option>
+              <option  *ngFor="let et of type"  [(ngValue)]="et" >{{et.name}}</option>
+            </select>
+        </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <a href="/labrates" class="btn btn-primary" type="submit" name="update" value="" (click)="updatetype(lab.id)" (click)="c('Close click')">Update</a>
+        <b  class="btn btn-dark"  name="close"  (click)="c('Close click')">Close</b>
+      
+      </div>
+      </ng-template>
+ 

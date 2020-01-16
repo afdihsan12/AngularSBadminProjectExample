@@ -1,0 +1,175 @@
+<div [@routerTransition]>
+  <app-page-header [heading]="'List Medicines Suppliers'" [icon]="'fa-desktop'"></app-page-header>
+  <div class="card-body">
+    <button class="btn btn-primary" (click)="open(add)" (click) ="resetEmp()">Add Medicines Suppliers</button>  
+</div>
+
+  <div class="card-header">
+  Medicines Suppliers List
+  </div>
+  <div class="form-group input-group">
+    <input type="text" class="form-control" name="id" [(ngModel)]="id">
+    <div class="input-group-append">
+      <select class="form-control" name="searchby" [(ngModel)]="searchby">  
+        <option value="supplier">Supplier</option>
+        <option value="obat">Obat</option>
+      </select>
+        <button class="btn btn-secondary" type="button"><i class="fa fa-search" (click)="search(id,searchby)"></i></button>
+    </div>
+</div>
+<div class="main-card mb-3 card">
+  <div class="table-responsive">
+    <table class="table table-borderless table-striped table-hover" [svData]="listmedsup" #sv="svDataTable" [svRowsOnPage]="3">
+      <thead>
+        <td class="text-center">No</td>
+        <td class="text-center">Medicines</td>
+        <td class="text-center">Suppliers</td>
+        <td class="text-center">Date</td>
+        <td class="text-center">Qty</td>
+        <td class="text-center">Action</td>
+      </thead>
+      <tbody>
+      <tr *ngFor = "let type of sv.data; let i = index;">
+        <td class="text-center">{{i+1}}</td>
+        <td class="text-center">
+          {{type.medicines?.name}}
+        </td>
+        <td class="text-center">
+          {{type.suppliers?.name}}
+        </td>
+        <td class="text-center">{{type.date}}</td>
+        <td class="text-center">{{type.qty}}</td>
+        <td class="text-center">
+          <a type="button" class="btn fa fa-trash-o" style="font-size:30px;color:red ;padding: 10;" (click)="open(delete)" (click)="upt(type.id)"></a>                  
+          <a type="button" class="btn fa fa-edit" style="font-size:30px;color: green;" (click)="open(update)" (click)="upt(type.id)"></a>
+        </td>
+      </tr>
+      </tbody>
+      <tfoot>
+          <tr>
+                <td colspan="4">
+                    <sv-bootstrap-paginator ></sv-bootstrap-paginator>
+                  </td>
+          </tr>
+          </tfoot>
+    </table>
+  </div>
+</div>
+ 
+
+<ng-template #add let-c="close" let-d="dismiss">
+  <div class="modal-header">
+      <h4 class="modal-title">Add Medicines</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="modal-body">
+    <form autocomplete="off">
+      <div class="form-group">
+        <label>Medicinies</label>
+        <select class="form-control"  name="med" [(ngModel)]="medsup.medicines">
+          <option [(value)]="et" selected disabled>Choose Medicines</option>
+          <option  *ngFor="let et of medc" [(ngValue)]="et">{{et.name}}</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+      <label>Suppliers</label>
+      <select class="form-control"  name="supp" [(ngModel)]="medsup.suppliers">
+        <option [(value)]="et" selected disabled>Choose Suppliers</option>
+        <option  *ngFor="let et of sup" [(ngValue)]="et">{{et.name}}</option>
+      </select>
+  </div>
+
+      <fieldset class="form-group">
+        <label>Date</label>
+        <input type="date" class="form-control" name="status" [(ngModel)]="medsup.date"  placeholder="Enter Date Supply">
+      </fieldset>   
+
+      
+      <fieldset class="form-group">
+        <label>Qty</label>
+        <input class="form-control" name="medsup.qty" [(ngModel)]="medsup.qty"  placeholder="Enter Medicines Qty">
+      </fieldset>  
+    </form>
+    
+  </div>
+  <div class="modal-footer">
+    <a  class="btn btn-primary"  name="submit" value="" (click)="createuser(succes)" (click)="c('Close click')">Save</a>
+  </div>
+  </ng-template>
+
+  <ng-template #succes let-c="close" let-d="dismiss">
+  
+    <div class="modal-body" style="text-align: center;">
+        <h5 style="color:grey;">ADD Medicines SUCCES</h5>
+    </div>
+    <div class="modal-footer" class="text-center">
+      <a type="button" class="btn btn-primary" style="text-align: left;" (click)="c('Close click')" href="medsuplly">OK</a>
+    </div>
+    </ng-template>
+
+    
+    <ng-template #delete let-c="close" let-d="dismiss">
+      <div class="modal-header">
+          <h4 class="modal-title">Delete Medicines</h4>
+          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+              <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body">
+          <p>Are You Sure to delete ??</p>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="c('Close click')" (click)="deleteEmployee(medsup.id)" href="medsuplly">Yes</button>
+          <button type="button" class="btn btn-secondary" (click)="c('Close click')">No</button>
+      </div>
+      </ng-template>
+  
+    <ng-template #update let-c="close" let-d="dismiss">
+      <div class="modal-header">
+          <h4 class="modal-title">Update Medicines</h4>
+          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+              <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body">
+        <form autocomplete="off">
+      
+          <div class="form-group">
+            <label>Medicinies</label>
+            <select class="form-control"  name="med" [(ngModel)]="medsup.medicines">
+              <option [(value)]="medsup.medicines" selected disabled>{{medsup.medicines?.name}}</option>
+              <option  *ngFor="let et of medc" [(ngValue)]="et">{{et.name}}</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+          <label>Suppliers</label>
+          <select class="form-control"  name="supp" [(ngModel)]="medsup.suppliers">
+            <option [(value)]="medsup.suppliers" selected disabled>{{medsup.suppliers?.name}}</option>
+            <option  *ngFor="let et of sup" [(ngValue)]="et">{{et.name}}</option>
+          </select>
+      </div>
+
+          <fieldset class="form-group">
+            <label>Date</label>
+            <input type="date" class="form-control" name="status" [(ngModel)]="medsup.date"  placeholder="Enter Date Supply">
+          </fieldset>   
+
+          
+          <fieldset class="form-group">
+            <label>Qty</label>
+            <input class="form-control" name="medsup.qty" [(ngModel)]="medsup.qty"  placeholder="Enter Medicines Qty">
+          </fieldset>  
+        </form>
+              </div>
+      <div class="modal-footer">
+        <a href="medsuplly" class="btn btn-primary" type="submit" name="update" value="" (click)="updateEmp(medsup.id)" (click)="c('Close click')">Update</a>
+        <b  class="btn btn-dark"  name="close"  (click)="c('Close click')">Close</b>
+      
+      </div>
+      </ng-template>
+    
+

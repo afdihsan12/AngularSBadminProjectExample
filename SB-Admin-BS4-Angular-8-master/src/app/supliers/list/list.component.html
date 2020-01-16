@@ -1,0 +1,138 @@
+<div [@routerTransition]>
+  <app-page-header [heading]="'List Suppliers'" [icon]="'fa-desktop'"></app-page-header>
+  <div class="card-body">
+    <button class="btn btn-primary" (click)="open(add)" (click) ="resetEmp()">Add Suppliers</button>  
+</div>
+  
+<div class="main-card mb-3 card">
+  <div class="card-header">
+  Supplier List
+  </div>
+  <div class="table-responsive">
+    <table class="table table-borderless table-striped table-hover" [svData]="listsup" #sv="svDataTable" [svRowsOnPage]="3">
+      <thead>
+        <td class="text-center">No</td>
+        <td class="text-center">Code</td>
+        <td class="text-center">Name</td>
+        <td class="text-center">Contact Person</td>
+        <td class="text-center">Action</td>
+      </thead>
+      <tbody>
+
+      <tr *ngFor = "let type of sv.data; let i = index;">
+        <td class="text-center">{{i+1}}</td>
+        <td class="text-center">
+          {{type.code}}
+        </td>
+        <td class="text-center">
+          {{type.name}}
+        </td>
+        <td class="text-center">{{type.cp}}</td>
+        <td class="text-center">
+          <a type="button" class="btn fa fa-trash-o" style="font-size:30px;color:red ;padding: 10;" (click)="open(delete)" (click)="upt(type.id)"></a>                  
+          <a type="button" class="btn fa fa-edit" style="font-size:30px;color: green;" (click)="open(update)" (click)="upt(type.id)"></a>
+        </td>
+      </tr>
+      </tbody>
+      <tfoot>
+          <tr>
+                <td colspan="4">
+                    <sv-bootstrap-paginator ></sv-bootstrap-paginator>
+                  </td>
+          </tr>
+          </tfoot>
+    </table>
+  </div>
+</div>
+
+
+<ng-template #add let-c="close" let-d="dismiss">
+  <div class="modal-header">
+      <h4 class="modal-title">Add Med Rec</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="modal-body">
+  <form autocomplete="off">
+    <fieldset class="form-group">
+      <label>Code</label>
+      <input  class="form-control" name="code" [(ngModel)]="suppliers.code"  placeholder="Enter Suppliers Code">
+    </fieldset>
+
+    <fieldset class="form-group">
+      <label>Name</label>
+      <input class="form-control" name="name" [(ngModel)]="suppliers.name"  placeholder="Enter Suppliers Name">
+    </fieldset>
+
+    <fieldset class="form-group">
+      <label>Contact Person</label>
+      <input class="form-control" name="status" [(ngModel)]="suppliers.cp"  placeholder="Enter Suppliers Contact">
+    </fieldset>   
+  </form>
+  </div>
+  <div class="modal-footer">
+    <a  class="btn btn-primary"  name="submit" value="" (click)="createuser(succes)" (click)="c('Close click')">Save</a>
+  </div>
+  </ng-template>
+
+  <ng-template #succes let-c="close" let-d="dismiss">
+  
+    <div class="modal-body" style="text-align: center;">
+        <h5 style="color:grey;">ADD Suppliers SUCCES</h5>
+    </div>
+    <div class="modal-footer" class="text-center">
+      <a type="button" class="btn btn-primary" style="text-align: left;" (click)="c('Close click')" href="suppliers">OK</a>
+    </div>
+    </ng-template>
+
+    
+    <ng-template #delete let-c="close" let-d="dismiss">
+      <div class="modal-header">
+          <h4 class="modal-title">Delete Suppliers</h4>
+          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+              <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body">
+          <p>Are You Sure to delete ??</p>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="c('Close click')" (click)="deleteEmployee(suppliers.id)" href="medrec">Yes</button>
+          <button type="button" class="btn btn-secondary" (click)="c('Close click')">No</button>
+      </div>
+      </ng-template>
+  
+    <ng-template #update let-c="close" let-d="dismiss">
+      <div class="modal-header">
+          <h4 class="modal-title">Update Suppliers</h4>
+          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+              <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body">
+        <form autocomplete="off">
+          <fieldset class="form-group">
+            <label>Code</label>
+            <input  class="form-control" name="code" [(ngModel)]="suppliers.code"  placeholder="Enter Suppliers Code">
+          </fieldset>
+      
+          <fieldset class="form-group">
+            <label>Name</label>
+            <input class="form-control" name="name" [(ngModel)]="suppliers.name"  placeholder="Enter Suppliers Name">
+          </fieldset>
+      
+          <fieldset class="form-group">
+            <label>Contact Person</label>
+            <input class="form-control" name="status" [(ngModel)]="suppliers.cp"  placeholder="Enter Suppliers Contact">
+          </fieldset>   
+        </form>
+              </div>
+      <div class="modal-footer">
+        <a href="suppliers" class="btn btn-primary" type="submit" name="update" value="" (click)="updateEmp(suppliers.id)" (click)="c('Close click')">Update</a>
+        <b  class="btn btn-dark"  name="close"  (click)="c('Close click')">Close</b>
+      
+      </div>
+      </ng-template>
+    
+
